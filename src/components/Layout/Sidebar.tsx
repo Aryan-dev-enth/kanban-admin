@@ -1,10 +1,9 @@
-
-import React from 'react';
-import { useTheme } from '@/contexts/ThemeContext';
-import { 
-  LayoutDashboard, 
-  Table, 
-  BarChart3, 
+import React from "react";
+import { useTheme } from "@/contexts/ThemeContext";
+import {
+  LayoutDashboard,
+  Table,
+  BarChart3,
   Calendar,
   Kanban,
   Settings,
@@ -14,8 +13,10 @@ import {
   User,
   Search,
   LogOut,
-  Crown
-} from 'lucide-react';
+  Crown,
+  Linkedin,
+} from "lucide-react";
+import { Github } from "lucide-react";
 
 interface SidebarProps {
   activeTab: string;
@@ -24,40 +25,55 @@ interface SidebarProps {
   setIsCollapsed: (collapsed: boolean) => void;
 }
 
-const Sidebar = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }: SidebarProps) => {
+const Sidebar = ({
+  activeTab,
+  setActiveTab,
+  isCollapsed,
+  setIsCollapsed,
+}: SidebarProps) => {
   const { theme } = useTheme();
 
   const themeClasses = {
-    blue: 'from-blue-600 to-blue-800 border-blue-500/20',
-    purple: 'from-purple-600 to-purple-800 border-purple-500/20',
-    green: 'from-green-600 to-green-800 border-green-500/20',
-    orange: 'from-orange-600 to-orange-800 border-orange-500/20'
+    blue: "from-blue-600 to-blue-800 border-blue-500/20",
+    purple: "from-purple-600 to-purple-800 border-purple-500/20",
+    green: "from-green-600 to-green-800 border-green-500/20",
+    orange: "from-orange-600 to-orange-800 border-orange-500/20",
   };
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, badge: null },
-    { id: 'tables', label: 'Data Tables', icon: Table, badge: '12' },
-    { id: 'charts', label: 'Analytics', icon: BarChart3, badge: null },
-    { id: 'calendar', label: 'Calendar', icon: Calendar, badge: '3' },
-    { id: 'kanban', label: 'Kanban Board', icon: Kanban, badge: '5' },
-    { id: 'themes', label: 'Themes', icon: Palette, badge: null },
-    { id: 'settings', label: 'Settings', icon: Settings, badge: null },
+    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, badge: null },
+    { id: "tables", label: "Data Tables", icon: Table, badge: "12" },
+    { id: "charts", label: "Analytics", icon: BarChart3, badge: null },
+    { id: "calendar", label: "Calendar", icon: Calendar, badge: "3" },
+    { id: "kanban", label: "Kanban Board", icon: Kanban, badge: "5" },
+    { id: "themes", label: "Themes", icon: Palette, badge: null },
+    { id: "settings", label: "Settings", icon: Settings, badge: null },
   ];
 
   const userStats = [
-    { label: 'Projects', value: '24' },
-    { label: 'Tasks', value: '67' },
-    { label: 'Messages', value: '12' }
+    { label: "Projects", value: "24" },
+    { label: "Tasks", value: "67" },
+    { label: "Messages", value: "12" },
   ];
 
   return (
-    <div className={`${isCollapsed ? 'w-16' : 'w-72'} transition-all duration-300 h-full bg-gradient-to-b ${themeClasses[theme]} backdrop-blur-xl border-r border-white/10 relative flex flex-col`}>
+    <div
+      className={`${
+        isCollapsed ? "w-16" : "w-72"
+      } transition-all duration-300 h-full bg-gradient-to-b ${
+        themeClasses[theme]
+      } backdrop-blur-xl border-r border-white/10 relative flex flex-col`}
+    >
       {/* Collapse Toggle */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
         className="absolute -right-3 top-6 bg-white dark:bg-gray-800 rounded-full p-1 shadow-lg border hover:scale-110 transition-transform z-10"
       >
-        <ChevronRight className={`w-4 h-4 transition-transform ${isCollapsed ? '' : 'rotate-180'}`} />
+        <ChevronRight
+          className={`w-4 h-4 transition-transform ${
+            isCollapsed ? "" : "rotate-180"
+          }`}
+        />
       </button>
 
       {/* Header Section */}
@@ -98,7 +114,10 @@ const Sidebar = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }: Sideb
           </div>
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
-              <h3 className="text-white font-medium text-sm truncate"> Aryan Singh</h3>
+              <h3 className="text-white font-medium text-sm truncate">
+                {" "}
+                Aryan Singh
+              </h3>
               <p className="text-white/60 text-xs">Product Manager</p>
             </div>
           )}
@@ -114,8 +133,13 @@ const Sidebar = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }: Sideb
         {!isCollapsed && (
           <div className="mt-3 grid grid-cols-3 gap-2">
             {userStats.map((stat, index) => (
-              <div key={index} className="text-center py-2 bg-white/5 rounded-lg backdrop-blur-sm">
-                <div className="text-white font-semibold text-sm">{stat.value}</div>
+              <div
+                key={index}
+                className="text-center py-2 bg-white/5 rounded-lg backdrop-blur-sm"
+              >
+                <div className="text-white font-semibold text-sm">
+                  {stat.value}
+                </div>
                 <div className="text-white/60 text-xs">{stat.label}</div>
               </div>
             ))}
@@ -127,25 +151,37 @@ const Sidebar = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }: Sideb
       <nav className="flex-1 p-4 space-y-2">
         <div className="mb-4">
           {!isCollapsed && (
-            <h4 className="text-white/60 text-xs font-medium uppercase tracking-wider mb-3">Main Menu</h4>
+            <h4 className="text-white/60 text-xs font-medium uppercase tracking-wider mb-3">
+              Main Menu
+            </h4>
           )}
-          
+
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
-            
+
             return (
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-white/10 group relative ${
-                  isActive ? 'bg-white/20 text-white shadow-lg' : 'text-white/70 hover:text-white'
+                  isActive
+                    ? "bg-white/20 text-white shadow-lg"
+                    : "text-white/70 hover:text-white"
                 }`}
               >
-                <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-white/70 group-hover:text-white'}`} />
+                <Icon
+                  className={`w-5 h-5 ${
+                    isActive
+                      ? "text-white"
+                      : "text-white/70 group-hover:text-white"
+                  }`}
+                />
                 {!isCollapsed && (
                   <>
-                    <span className="font-medium flex-1 text-left">{item.label}</span>
+                    <span className="font-medium flex-1 text-left">
+                      {item.label}
+                    </span>
                     {item.badge && (
                       <span className="bg-white/20 text-white text-xs px-2 py-1 rounded-full">
                         {item.badge}
@@ -159,6 +195,8 @@ const Sidebar = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }: Sideb
               </button>
             );
           })}
+
+          
         </div>
       </nav>
 
@@ -171,12 +209,15 @@ const Sidebar = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }: Sideb
               <span className="text-white text-xs font-medium">67%</span>
             </div>
             <div className="w-full bg-white/20 rounded-full h-2">
-              <div className="bg-gradient-to-r from-green-400 to-blue-500 h-2 rounded-full" style={{ width: '67%' }}></div>
+              <div
+                className="bg-gradient-to-r from-green-400 to-blue-500 h-2 rounded-full"
+                style={{ width: "67%" }}
+              ></div>
             </div>
             <p className="text-white/60 text-xs mt-1">8.2 GB of 12 GB used</p>
           </div>
         )}
-        
+
         <button className="w-full flex items-center gap-3 px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
           <LogOut className="w-4 h-4" />
           {!isCollapsed && <span className="text-sm">Sign Out</span>}
